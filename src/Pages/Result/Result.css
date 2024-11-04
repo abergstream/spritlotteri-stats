@@ -1,0 +1,5 @@
+.result-card__container {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto; /* Enables vertical scrolling */
+  height: 100vh; /* Set a fixed height to enable scrolling */
+}

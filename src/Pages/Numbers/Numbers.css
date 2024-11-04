@@ -1,0 +1,31 @@
+.players__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  gap: 1rem;
+}
+.players__item {
+  display: flex;
+  gap: 0 1.5rem;
+  padding: 0.5rem;
+  width: 60%;
+}
+.players__number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  background-color: #fff;
+  color: #000;
+  box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.65);
+}
+.players__name {
+  display: flex;
+  align-items: center;
+  color: #dadada;
+}
