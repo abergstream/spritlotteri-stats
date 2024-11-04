@@ -1,14 +1,17 @@
+import { useState } from "react";
 import "./App.css";
-import Numbers from "./Pages/Numbers/Numbers";
+import Navigation from "./Components/Navigation/Navigation";
 import Result from "./Pages/Result/Result";
 import Stats from "./Pages/Stats/Stats";
 
 function App() {
+  const [page, setPage] = useState<"Joker" | "Top score">("Joker");
   return (
     <>
-      {/* <Numbers /> */}
+      {/* <Stats /> */}
+      {page == "Joker" ? <Result /> : <Stats />}
       {/* <Result /> */}
-      <Stats />
+      <Navigation page={page} setPage={setPage} />
     </>
   );
 }

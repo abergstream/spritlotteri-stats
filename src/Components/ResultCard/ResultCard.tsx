@@ -21,7 +21,6 @@ type ResultCardProps = {
 };
 
 const ResultCard: React.FC<ResultCardProps> = ({ result }) => {
-  console.log(result);
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { amount: "all", once: true });
 

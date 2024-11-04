@@ -1,0 +1,16 @@
+.navItem {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(102, 0, 0, 0.7);
+  border: 1px solid #111;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  font-size: 1.5rem;
+}
