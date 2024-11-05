@@ -8,7 +8,7 @@ import {
   mdiNumeric2Box,
   mdiNumeric3Box,
 } from "@mdi/js";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 type Result = {
   name: string;
   number: number;
@@ -55,8 +55,9 @@ const Stats = () => {
   };
 
   const itemVariants = {
-    visible: { y: 0, opacity: [0, 0.5, 1], scale: [1, 1.03, 1] },
-    hidden: { y: 0, opacity: 0 },
+    visible: { opacity: 1 },
+    initial: { opacity: 0 },
+    exit: { opacity: 0, scaleY: 0 },
   };
   const handleSort = (key: keyof Result) => {
     const newOrder = sortByKey([...topScore], key);
@@ -112,38 +113,44 @@ const Stats = () => {
             initial="hidden"
             animate="visible"
             className="result-wrapper"
+            transition={{ duration: 0.2 }}
             variants={wrapperVariants}
           >
             {topScore &&
               topScore.map((player) => {
                 return (
-                  <motion.div
-                    key={player.name}
-                    className="result__row"
-                    variants={itemVariants}
-                  >
-                    <div className="result__column result__column--numbers">
-                      <div className="result__column--ball">
-                        {player.number}
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={player.name}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="result__row"
+                      variants={itemVariants}
+                    >
+                      <div className="result__column result__column--numbers">
+                        <div className="result__column--ball">
+                          {player.number}
+                        </div>
                       </div>
-                    </div>
-                    <div className="result__column result__column--name">
-                      {player.name.split(" ")[0]}
-                    </div>
+                      <div className="result__column result__column--name">
+                        {player.name.split(" ")[0]}
+                      </div>
 
-                    <div className="result__column result__column--numbers">
-                      {player.first}
-                    </div>
-                    <div className="result__column result__column--numbers">
-                      {player.second}
-                    </div>
-                    <div className="result__column result__column--numbers">
-                      {player.third}
-                    </div>
-                    <div className="result__column result__column--numbers">
-                      {player.total}
-                    </div>
-                  </motion.div>
+                      <div className="result__column result__column--numbers">
+                        {player.first}
+                      </div>
+                      <div className="result__column result__column--numbers">
+                        {player.second}
+                      </div>
+                      <div className="result__column result__column--numbers">
+                        {player.third}
+                      </div>
+                      <div className="result__column result__column--numbers">
+                        {player.total}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 );
               })}
           </motion.div>
@@ -173,7 +180,13 @@ function calculateResults(
   const incrementPlacement = (number: number, placement: keyof Result) => {
     const result = myResultsArray[number];
     result[placement]++;
-    result.total++;
+    const placementScores: { [key: string]: number } = {
+      first: 7,
+      second: 2,
+      third: 1,
+    };
+    const addTotal = placementScores[placement];
+    result.total = result.total + addTotal;
   };
   results.forEach((result) => {
     incrementPlacement(result.first_place.number, "first");
